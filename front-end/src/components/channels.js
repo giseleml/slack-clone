@@ -13,7 +13,6 @@ export class Channels extends React.Component {
     //gets resolve of API and converts to JSON
     .then(res => res.json())
     .then(json => {
-      //converts from object to string
       this.setState({ channelsList: json })
     })
     .catch(err => console.log(err));
