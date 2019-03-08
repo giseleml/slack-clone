@@ -17,6 +17,14 @@ const conversations = [{
   ]
 }]
 
+//cors
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+})
 app.get('/me', (req, res) => {
   res.json({
     id: Math.floor(Math.random() * 1000000).toString(),
