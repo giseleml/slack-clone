@@ -8,14 +8,17 @@ export class Channels extends React.Component {
     }
   }
 
-  componentDidMount() {
+  getChannelsFromAPI() {
     fetch('http://localhost:3000/channels')
-    //gets resolve of API and converts to JSON
     .then(res => res.json())
     .then(json => {
       this.setState({ channelsList: json })
     })
     .catch(err => console.log(err));
+  }
+
+  componentDidMount() {
+    this.getChannelsFromAPI()
   }
 
   render(){
