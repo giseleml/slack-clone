@@ -4,7 +4,7 @@ export const Conversations = props => {
   return(
     <div>
       {
-        this.props.map(msg => {
+         props.messageData.map(msg => {
           return (
             <div key={msg.id}>
               <h1>{msg.messages}</h1>

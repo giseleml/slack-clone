@@ -8,7 +8,8 @@ import { Conversations } from './components/conversations'
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.messageData = {}
+
+    this.messageData = []
     this.getMsgFromAPI = this.getMsgFromAPI.bind(this)
     this.render = this.render.bind(this)
   }
@@ -17,7 +18,8 @@ class App extends React.Component {
     fetch('http://localhost:3000/conversations/2')
     .then(res => res.json())
     .then(json => {
-    this.messageData = json
+      this.setState({ messageData: json })
+      console.log(this.state.messageData)
     })
     .catch(err => console.log(err))
   }
@@ -27,7 +29,7 @@ class App extends React.Component {
       <div>
         <h1>Slack Clone</h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI}/>
-        <Conversations props={this.messageData}/>
+        <Conversations messageData={this.messageData}/>
       </div>
     )
   }
