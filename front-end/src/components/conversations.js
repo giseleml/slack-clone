@@ -4,12 +4,12 @@ export const Conversations = props => {
   return(
     <div>
       {
-         props.messageData.map(msg => {
+        props.messageData.map(msg => {
           return (
-            <div key={msg.id}>
-              <h1>{msg.messages}</h1>
-              <p>{msg.channelId}</p>
-            </div>
+              <div id={msg.id}>{msg.messages.map(i => {
+                return <p id={i.userId}>{i.text}</p>
+              })}
+              </div>
         )})
       }
     </div>

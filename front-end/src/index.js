@@ -9,17 +9,19 @@ class App extends React.Component {
   constructor(props){
     super(props);
 
-    this.messageData = []
+    this.state = {
+      messageData: []
+    }
+
     this.getMsgFromAPI = this.getMsgFromAPI.bind(this)
     this.render = this.render.bind(this)
   }
 
   getMsgFromAPI() {
-    fetch('http://localhost:3000/conversations/2')
+    fetch(`http://localhost:3000/conversations/2` )
     .then(res => res.json())
     .then(json => {
       this.setState({ messageData: json })
-      console.log(this.state.messageData)
     })
     .catch(err => console.log(err))
   }
@@ -28,8 +30,8 @@ class App extends React.Component {
     return(
       <div>
         <h1>Slack Clone</h1>
-        <Channels getMsgFromAPI={this.getMsgFromAPI}/>
-        <Conversations messageData={this.messageData}/>
+        <Channels getMsgFromAPI={this.getMsgFromAPI} />
+        <Conversations messageData={this.state.messageData}/>
       </div>
     )
   }
