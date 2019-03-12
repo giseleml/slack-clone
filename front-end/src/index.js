@@ -28,7 +28,11 @@ class App extends React.Component {
   render(){
     return(
       <div className="slack-clone">
-        <h1>Slack Clone</h1>
+        <h1>Slack Clone
+          <div id="user-status">
+            <p>Online</p>
+          </div>
+        </h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
         <Conversations messageData={this.state.messageData}/>
       </div>
