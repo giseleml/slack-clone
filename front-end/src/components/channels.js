@@ -29,7 +29,7 @@ export class Channels extends React.Component {
             return (
               <h1
               key={channel.id}
-              onClick={() => this.props.getMsgFromAPI(channel.id)}>{channel.name}
+              onClick={() => this.props.getMsgFromAPI(channel.id)}># {channel.name}
               </h1>
             )
           })
