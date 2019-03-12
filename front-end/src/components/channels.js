@@ -14,7 +14,7 @@ export class Channels extends React.Component {
     .then(json => {
       this.setState({ channelsList: json })
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -26,9 +26,12 @@ export class Channels extends React.Component {
       <div className="channel-pannel">
         {
           this.state.channelsList.map(channel => {
-            return <div key={channel.id}>
-              <h1>{channel.name}</h1>
-            </div>
+            return (
+              <h1
+              key={channel.id}
+              onClick={() => this.props.getMsgFromAPI(channel.id)}>{channel.name}
+              </h1>
+            )
           })
         }
       </div>
