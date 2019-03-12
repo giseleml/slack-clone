@@ -8,7 +8,6 @@ import { Conversations } from './components/conversations'
 class App extends React.Component {
   constructor(props){
     super(props);
-
     this.state = {
       messageData: []
     }
@@ -17,8 +16,8 @@ class App extends React.Component {
     this.render = this.render.bind(this)
   }
 
-  getMsgFromAPI() {
-    fetch(`http://localhost:3000/conversations/2` )
+  getMsgFromAPI(id) {
+    fetch(`http://localhost:3000/conversations/${id}` )
     .then(res => res.json())
     .then(json => {
       this.setState({ messageData: json })

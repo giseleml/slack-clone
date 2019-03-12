@@ -26,9 +26,12 @@ export class Channels extends React.Component {
       <div className="channel-pannel">
         {
           this.state.channelsList.map(channel => {
-            return <div key={channel.id}>
-              <h1 onClick={this.props.getMsgFromAPI}>{channel.name}</h1>
-            </div>
+            return (
+              <h1
+              id={channel.id}
+              onClick={() => this.props.getMsgFromAPI(channel.id)}>{channel.name}
+              </h1>
+            )
           })
         }
       </div>

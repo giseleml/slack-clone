@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Conversations = props => {
   return(
-    <div>
+    <div className="conversation-pannel">
       {
         props.messageData.map(msg => {
           return (
