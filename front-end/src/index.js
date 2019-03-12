@@ -22,13 +22,13 @@ class App extends React.Component {
     .then(json => {
       this.setState({ messageData: json })
     })
-    .catch(err => console.log(err))
+    .catch(err => console.error(err))
   }
 
   render(){
     return(
-      <div>
-        <h1>Slack Clone</h1>
+      <div className="slack-clone">
+        <h1 id="app-title">Slack Clone</h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
         <Conversations messageData={this.state.messageData}/>
       </div>
