@@ -9,10 +9,12 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      messageData: []
+      messageData: [],
+      currentUserId: {}
     }
 
     this.getMsgFromAPI = this.getMsgFromAPI.bind(this)
+    this.getUserId = this.getUserId.bind(this)
     this.render = this.render.bind(this)
   }
 
@@ -25,12 +27,24 @@ class App extends React.Component {
     .catch(err => console.error(err))
   }
 
+  getUserId() {
+    fetch('http://localhost:3000/me')
+    .then(res => res.json())
+    .then(json => {
+      this.setState({ currentUserId: json})
+    })
+    .catch(err => console.error(err))
+  }
+
   render(){
     return(
       <div className="slack-clone">
         <h1>Slack Clone
           <div id="user-status">
             <p>Online</p>
+          </div>
+          <div id="current-user">
+            <h1>{this.state.currentUserId.name}</h1>
           </div>
         </h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
