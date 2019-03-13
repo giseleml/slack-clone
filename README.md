@@ -5,6 +5,4 @@ Routes:
 - GET `/users`: return all users
 - GET `/channels`: return all channels
 - GET `/conversations/:channelId`: return a conversation by a given channelId
-- POST `/conversation` : post a new message to a conversation. Request body: `{ conversationId, userId, message }`
-
-testing
+- POST `/conversations/:channelId` : post a new message to a conversation. Request body: `{ userId, text }`
