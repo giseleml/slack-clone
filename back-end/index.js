@@ -1,5 +1,9 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser')
+const app = express();
+app.use(bodyParser.json());
+
+const generateId = () => Math.floor(Math.random() * 1000000).toString()
 
 const channels = [
   { id: 0, name: 'tech' },
@@ -7,15 +11,13 @@ const channels = [
   { id: 2, name: 'random' }
 ]
 
-const users = [{ id: 0, name: 'bot' }]
-
-const conversations = [{
-  id: 0,
-  channelId: 2,
-  messages: [
-    { userId: 0, text: 'Hello, welcome!' }
-  ]
-}]
+const botUsers = [{ id: 0, name: 'bot zed' }, { id: 1, name: 'bot edward' }]
+const users = []
+const conversations = channels.map((channel) => ({
+  id: generateId(),
+  channelId: channel.id,
+  messages: []
+}))
 
 //cors
 app.use((req, res, next) => {
@@ -26,10 +28,9 @@ app.use((req, res, next) => {
   next();
 })
 app.get('/me', (req, res) => {
-  res.json({
-    id: Math.floor(Math.random() * 1000000).toString(),
-    name: "you"
-  })
+  const newUser = { id: generateId(), name: "you"}
+  users.push(newUser)
+  res.json(newUser)
 })
 
 app.get('/channels', (req, res) => {
@@ -42,7 +43,31 @@ app.get('/users', (req, res) => {
 
 app.get('/conversations/:channelId', (req, res) => {
   const { channelId } = req.params
-  res.json(conversations.filter(x => x.channelId == channelId))
+  res.json(conversations.filter((c) => c.channelId == channelId))
 })
 
+app.post('/conversations/:channelId', (req, res) => {
+  const { channelId } = req.params
+  const { userId, text } = req.body
+
+  sendMessage({ channelId, userId, text })
+
+  res.send("OK")
+})
+
+const sendMessage = ({ channelId, userId, text }) => {
+  const conversation = conversations.find((c) => c.channelId == channelId)
+  conversation.messages.push({ userId, text })
+}
+
 app.listen(3000, () => { console.log('back-end running at :3000') });
+
+const faker = require('faker')
+setInterval(() => {
+  const userId = parseInt(Math.random() * 2) + 1
+  const channelId = parseInt(Math.random() * 3)
+  const text = faker.random.words()
+
+  sendMessage({ channelId, userId, text })
+  console.info("created new random message: " + text)
+}, 5000)
