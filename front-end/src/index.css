@@ -1,5 +1,6 @@
 body {
   background-color:  #4D394B;
+  overflow: hidden;
 }
 
 .slack-clone {
@@ -44,9 +45,26 @@ body {
   grid-column: 2 / 4;
   grid-row: 1 / 4;
   background-color: white;
+  max-height: 45rem;
+  overflow-y: scroll;
 }
 
 .conversation-pannel p {
   margin-left: 1rem;
   font-family: 'Overpass', sans-serif;
+}
+
+.send-msg {
+  color: red;
+  width: 85%;
+  bottom: 1rem;
+  border: 2px darkgrey solid;
+  position: fixed;
+}
+
+#type-msg {
+  width: 85%;
+  height: 2rem;
+  font-size: 1.2rem;
+  margin-left: 1rem;
 }
