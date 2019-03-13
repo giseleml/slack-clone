@@ -31,7 +31,6 @@ class App extends React.Component {
     fetch('http://localhost:3000/me')
     .then(res => res.json())
     .then(json => {
-    //console.log("resultado", json)
       this.setState({ currentUserId: json})
     })
     .catch(err => console.error(err))
