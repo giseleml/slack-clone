@@ -31,9 +31,14 @@ class App extends React.Component {
     fetch('http://localhost:3000/me')
     .then(res => res.json())
     .then(json => {
+    //console.log("resultado", json)
       this.setState({ currentUserId: json})
     })
     .catch(err => console.error(err))
+  }
+
+  componentDidMount() {
+    this.getUserId()
   }
 
   render(){
@@ -41,10 +46,10 @@ class App extends React.Component {
       <div className="slack-clone">
         <h1>Slack Clone
           <div id="user-status">
-            <p>Online</p>
-          </div>
-          <div id="current-user">
-            <h1>{this.state.currentUserId.name}</h1>
+            <p
+            key={this.state.currentUserId.id}>
+            {this.state.currentUserId.name}
+            </p>
           </div>
         </h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
