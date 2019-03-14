@@ -1,0 +1,72 @@
+@import '_variables';
+
+body {
+  background-color: $dark-purple;
+  overflow: hidden;
+}
+
+.slack-clone {
+  display: grid;
+  grid-template-columns: 0.4fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+
+  & > h1 {
+    background-color: $greyish-purple;
+    color: white;
+    font-family: $main-font;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  #user-status {
+    background-color: green;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+  }
+}
+
+.channel-pannel {
+  grid-column: 1 / 1;
+  grid-row: 2 / 3;
+  background-color: $dark-purple;
+  color: white;
+  font-family: $main-font;
+  font-size: 0.8rem;
+
+  h1:hover {
+    background-color: $greyish-purple;
+  }
+}
+
+.conversation-pannel {
+  grid-column: 2 / 4;
+  grid-row: 1 / 4;
+  background-color: white;
+  max-height: 45rem;
+  overflow-y: scroll;
+
+  p {
+    margin-left: 1rem;
+    font-family: $main-font;
+  }
+}
+
+.send-msg {
+  color: red;
+  width: 85%;
+  bottom: 1rem;
+  border: 2px darkgrey solid;
+  position: fixed;
+
+  #type-msg {
+    width: 85%;
+    height: 2rem;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+}
