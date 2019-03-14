@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './index.css';
+import './styles/index.scss';
 import { Channels } from './components/channels'
 import { Conversations } from './components/conversations'
 
