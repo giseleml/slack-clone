@@ -51,11 +51,12 @@ class SendMessages extends React.Component {
     let message = this.state.message
     
     fetch('http://localhost:3000/conversations/1', {
+      /*
       headers: {
         'Content-type': 'application/json'
-      },
+      },*/
       method: 'POST',
-      body: JSON.stringify(message),
+      body: JSON.stringify(message)
     })
     .then(res => res.text())
     .then(data => {
