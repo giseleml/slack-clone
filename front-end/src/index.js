@@ -16,8 +16,10 @@ class App extends React.Component {
     this.getMsgFromAPI = this.getMsgFromAPI.bind(this)
     this.getUserInfo = this.getUserInfo.bind(this)
     this.render = this.render.bind(this)
+
   }
 
+  // Returns arrays of messages
   getMsgFromAPI(id) {
     fetch(`http://localhost:3000/conversations/${id}` )
     .then(res => res.json())
@@ -27,11 +29,12 @@ class App extends React.Component {
     .catch(err => console.error(err))
   }
 
+  // Gets current user id and name
   getUserInfo() {
     fetch('http://localhost:3000/me')
     .then(res => res.json())
     .then(json => {
-      this.setState({ currentUser: json})
+      this.setState({ currentUser: json })
     })
     .catch(err => console.error(err))
   }
@@ -52,7 +55,9 @@ class App extends React.Component {
           </div>
         </h1>
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
-        <Conversations messageData={this.state.messageData}/>
+        <Conversations
+        messageData={this.state.messageData}
+        currentUserId={this.state.currentUser.id} />
       </div>
     )
   }

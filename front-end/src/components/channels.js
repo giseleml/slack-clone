@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Displays each channel id and name on a sidebar
 export class Channels extends React.Component {
   constructor(props){
     super(props);
@@ -8,6 +9,7 @@ export class Channels extends React.Component {
     }
   }
 
+  // Returns Channels id and name
   getChannelsFromAPI() {
     fetch('http://localhost:3000/channels')
     .then(res => res.json())
