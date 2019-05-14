@@ -1,37 +1,82 @@
 import React from 'react'
 
+// Displays received messages id and text
 export const Conversations = props => {
-  return(
-    <div className="conversation-pannel">
-      <ReceivedMessages messageData={props.messageData}/>
-      <SendMessages />
-    </div>
-  )
+    return(
+      <div>
+        <ReceivedMessages messageData={props.messageData} />
+        <SendMessages />
+      </div>
+    )
 }
 
 const ReceivedMessages = props => {
   return(
-    <div className="received-msg">
-    {
-      props.messageData.map(msg => {
-        return (
-            <div key={msg.id}>{msg.messages.map(i => {
-              return <p><b>User says:</b> {i.text}</p>
-            })}
-            </div>
-      )})
-    }
+    <div className="conversation-pannel">
+      {
+        props.messageData.map(msg => {
+          return (
+              <div key={msg.id}>{msg.messages.map((i, id) => {
+                return <p key={id}><b>User says:</b> {i.text}</p>
+              })}
+              </div>
+        )})
+      }
     </div>
   )
 }
 
-const SendMessages = () => {
-  return(
-    <div className="send-msg">
+class SendMessages extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      message: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(e) {
+    this.setState({
+      message: e.target.value
+    })
+  }
+
+  /* Sends message to back-end
+  POST /conversations/:channelId : post a new message to a conversation. Request body: { userId, text }
+  */
+
+  handleSubmit(e) {
+    e.preventDefault()
+    let message = this.state.message
+    
+    fetch('http://localhost:3000/conversations/1', {
+      /*
+      headers: {
+        'Content-type': 'application/json'
+      },*/
+      method: 'POST',
+      body: JSON.stringify(message)
+    })
+    .then(res => res.text())
+    .then(data => {
+      console.log('Created Gist:', data);
+    });
+
+    this.setState({
+      message: ''
+    })
+  }
+
+  render(){
+    return(
       <div>
-        <button>SEND</button>
-        <input type="text" id="type-msg"></input>
+        <form className="send-msg-form" onSubmit={this.handleSubmit}>
+          <input type="text" placeholder="Type your message here..."
+          onChange={this.handleChange} value={this.state.message} 
+          />
+        </form>
       </div>
-    </div>
-  )
+    )
+  }
 }
