@@ -24,6 +24,7 @@ const ReceivedMessages = props => {
       }
     </div>
   )
+
 }
 
 class SendMessages extends React.Component {
@@ -45,29 +46,31 @@ class SendMessages extends React.Component {
   /* Sends message to back-end
   POST /conversations/:channelId : post a new message to a conversation. Request body: { userId, text }
   */
-
+  
   handleSubmit(e) {
     e.preventDefault()
     let message = this.state.message
     
     fetch('http://localhost:3000/conversations/1', {
-      /*
-      headers: {
-        'Content-type': 'application/json'
-      },*/
       method: 'POST',
-      body: JSON.stringify(message)
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ userId: 1, text: message })
     })
     .then(res => res.text())
     .then(data => {
       console.log('Created Gist:', data);
-    });
+    })
+    .catch(err => console.error(err))
 
     this.setState({
       message: ''
     })
   }
 
+ 
   render(){
     return(
       <div>
@@ -80,3 +83,4 @@ class SendMessages extends React.Component {
     )
   }
 }
+
