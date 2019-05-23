@@ -1,11 +1,12 @@
 import React from 'react'
 
-// Displays received messages id and text
 export const Conversations = props => {
     return(
       <div>
         <ReceivedMessages messageData={props.messageData} />
-        <SendMessages />
+        <SendMessages 
+        userInfo={props.userInfo}
+        currentChannel={props.currentChannel}/>
       </div>
     )
 }
@@ -24,12 +25,11 @@ const ReceivedMessages = props => {
       }
     </div>
   )
-
 }
 
 class SendMessages extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       message: ''
     }
@@ -43,21 +43,20 @@ class SendMessages extends React.Component {
     })
   }
 
-  /* Sends message to back-end
-  POST /conversations/:channelId : post a new message to a conversation. Request body: { userId, text }
-  */
-  
+  // Sends message to back-end
   handleSubmit(e) {
     e.preventDefault()
     let message = this.state.message
+    let userId = this.props.userInfo.id
+    let channelId = this.props.currentChannel
     
-    fetch('http://localhost:3000/conversations/1', {
+    fetch(`http://localhost:3000/conversations/${channelId}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
         'content-type': 'application/json'
       },
-      body: JSON.stringify({ userId: 1, text: message })
+      body: JSON.stringify({ userId, text: message })
     })
     .then(res => res.text())
     .then(data => {
@@ -70,7 +69,6 @@ class SendMessages extends React.Component {
     })
   }
 
- 
   render(){
     return(
       <div>

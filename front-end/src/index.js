@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       messageData: [],
-      currentUser: {}
+      currentUser: {},
+      currentChannel: {}
     }
 
     this.getMsgFromAPI = this.getMsgFromAPI.bind(this)
@@ -24,7 +25,7 @@ class App extends React.Component {
     fetch(`http://localhost:3000/conversations/${id}` )
     .then(res => res.json())
     .then(json => {
-      this.setState({ messageData: json })
+      this.setState({ messageData: json, currentChannel: id })
     })
     .catch(err => console.error(err))
   }
@@ -57,7 +58,8 @@ class App extends React.Component {
         <Channels getMsgFromAPI={this.getMsgFromAPI} />
         <Conversations
         messageData={this.state.messageData}
-        currentUserId={this.state.currentUser.id} />
+        userInfo={this.state.currentUser}
+        currentChannel={this.state.currentChannel} />
       </div>
     )
   }
